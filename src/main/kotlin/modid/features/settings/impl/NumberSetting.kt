@@ -1,0 +1,80 @@
+package modid.features.settings.impl
+
+
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
+import modid.features.settings.Saving
+import modid.features.settings.Setting
+import kotlin.math.round
+
+/**
+ * Setting that lets you pick a number between a range.
+ * @author Stivais, Aton
+ */
+@Suppress("UNCHECKED_CAST")
+class NumberSetting<E>(
+    name: String,
+    override val default: E = 1.0 as E, // hey it works
+    min: Number = -10000,
+    max: Number = 10000,
+    increment: Number = 1,
+    hidden: Boolean = false,
+    description: String,
+    val unit: String = "",
+) : Setting<E>(name, hidden, description),
+    Saving where E : Number, E : Comparable<E> {
+
+    override var value: E = default
+        set(value) {
+            field = roundToIncrement(value).coerceIn(min, max) as E
+        }
+
+    fun setValueFromNumber(number: Number) {
+        value = (roundToIncrement(number).coerceIn(min, max) as E)
+    }
+
+    val roundTo = if (increment.toDouble() == 1.0) 0 else 2
+
+    /**
+     * The amount a setting should increment.
+     */
+    val increment = increment.toDouble()
+
+    /**
+     * The minimum a setting can be.
+     */
+    val min = min.toDouble()
+
+    /**
+     * The maximum a setting can be.
+     */
+    var max = max.toDouble()
+
+    /** Used for GUI Rendering as using [value] as Number is really inconvenient for maths */
+    var valueDouble
+        get() = value.toDouble()
+        set(value) {
+            this.value = value as E
+        }
+
+    /** Used for GUI Rendering as using [value] as Number is really inconvenient for maths */
+    var valueInt
+        get() = value.toInt()
+        set(value) {
+            this.value = value as E
+        }
+
+    override fun write(): JsonElement {
+        return JsonPrimitive(value)
+    }
+
+    override fun read(element: JsonElement?) {
+        element?.asNumber?.let {
+            value = roundToIncrement(it) as E
+        }
+    }
+
+    private fun roundToIncrement(x: Number): Double {
+        return round((x.toDouble() / increment)) * increment
+    }
+}
