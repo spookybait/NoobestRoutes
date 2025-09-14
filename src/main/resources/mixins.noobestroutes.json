@@ -1,0 +1,16 @@
+{
+  "package": "noobestroutes.mixin",
+  "refmap": "mixins.noobestroutes.refmap.json",
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinModList",
+    "MixinNetworkManager",
+    "player.MixinEntityLivingBase"
+  ],
+  "client": [
+    "MixinMinecraft",
+    "MixinNetHandlerPlayClient",
+    "player.MixinEntityPlayerSP_EntityPlayer"
+  ]
+}

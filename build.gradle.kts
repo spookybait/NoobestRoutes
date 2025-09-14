@@ -18,7 +18,7 @@ plugins {
 
 
 version = project.findProperty("version") as String
-val modId = project.findProperty("modid") as String
+val modId = project.findProperty("noobestroutes") as String
 val modName = project.findProperty("modname") as String
 val prodValue = project.findProperty("prod") as? String ?: "false"
 val isDevBuild = (prodValue == false.toString())

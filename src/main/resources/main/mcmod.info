@@ -1,6 +1,6 @@
 [
   {
-    "modid": "@MOD_ID@",
+    "noobestroutes": "@MOD_ID@",
     "name": "@MOD_NAME@",
     "description": "",
     "version": "@VER@",
