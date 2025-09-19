@@ -1,4 +1,4 @@
-package noobroutes.features.move
+package noobestroutes.features.move
 
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
@@ -18,20 +18,20 @@ import net.minecraft.util.Vec3
 import net.minecraftforge.client.event.MouseEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import noobroutes.events.BossEventDispatcher.inBoss
-import noobroutes.events.impl.ChatPacketEvent
-import noobroutes.events.impl.PacketEvent
-import noobroutes.events.impl.WorldChangeEvent
-import noobroutes.features.Category
-import noobroutes.features.Module
-import noobroutes.features.render.ClickGUIModule
-import noobroutes.features.settings.DevOnly
-import noobroutes.features.settings.Setting.Companion.withDependency
-import noobroutes.features.settings.impl.*
-import noobroutes.utils.*
-import noobroutes.utils.Utils.ID
-import noobroutes.utils.skyblock.*
-import noobroutes.utils.skyblock.dungeon.DungeonUtils
+import noobestroutes.events.BossEventDispatcher.inBoss
+import noobestroutes.events.impl.ChatPacketEvent
+import noobestroutes.events.impl.PacketEvent
+import noobestroutes.events.impl.WorldChangeEvent
+import noobestroutes.features.Category
+import noobestroutes.features.Module
+import noobestroutes.features.render.ClickGUIModule
+import noobestroutes.features.settings.DevOnly
+import noobestroutes.features.settings.Setting.Companion.withDependency
+import noobestroutes.features.settings.impl.*
+import noobestroutes.utils.*
+import noobestroutes.utils.Utils.ID
+import noobestroutes.utils.skyblock.*
+import noobestroutes.utils.skyblock.dungeon.DungeonUtils
 import java.lang.Thread.sleep
 import kotlin.math.floor
 
