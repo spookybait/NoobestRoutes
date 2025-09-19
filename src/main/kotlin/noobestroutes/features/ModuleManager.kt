@@ -14,6 +14,7 @@ import noobestroutes.ui.hud.HudElement
 import noobestroutes.utils.capitalizeFirst
 import noobestroutes.utils.profile
 import noobestroutes.utils.render.getTextWidth
+import noobestroutes.features.move.*
 import net.minecraft.network.Packet
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.world.WorldEvent
@@ -43,6 +44,7 @@ object ModuleManager {
 
     val modules: ArrayList<Module> = arrayListOf(
         ClickGUIModule,
+        Zpew,
     )
 
     init {
