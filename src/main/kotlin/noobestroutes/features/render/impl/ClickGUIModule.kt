@@ -1,4 +1,4 @@
-package noobestroutes.features.impl.render
+package noobestroutes.features.render.impl
 
 import noobestroutes.Core
 import noobestroutes.config.Config
