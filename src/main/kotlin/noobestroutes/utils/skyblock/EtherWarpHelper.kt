@@ -5,7 +5,7 @@ import net.minecraft.util.Vec3
 import noobestroutes.Core.mc
 import noobestroutes.utils.*
 import noobestroutes.utils.render.RenderUtils.renderVec
-import noobestroutes.utils.skyblock.PlayerUtils.SNEAK_EYE_HEIGHT
+import noobestroutes.utils.PlayerUtils.SNEAK_EYE_HEIGHT
 import kotlin.math.*
 
 /**
