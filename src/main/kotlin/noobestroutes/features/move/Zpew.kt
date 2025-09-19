@@ -39,8 +39,7 @@ import kotlin.math.floor
 object Zpew : Module(
     name = "ZZZpew",
     category = Category.MOVE,
-    description = "Blink Based \"Zpew\". Does not work with autoroutes. (At least no Proxy needed)" ,
-    warning = true
+    description = "Blink Based \"Zpew\". Does not work with autoroutes. (At least no Proxy needed)"
 ) {
     private val zpew by BooleanSetting("Zero Ping Etherwarp", description = "Zero ping teleport for right clicking aotv")
     private val zpt by BooleanSetting("Zero Ping Aotv", description = "Zero ping teleport for right clicking aotv")
