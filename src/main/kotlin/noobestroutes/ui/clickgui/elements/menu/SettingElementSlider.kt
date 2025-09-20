@@ -1,5 +1,6 @@
 package noobestroutes.ui.clickgui.elements.menu
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.NumberSetting
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
 import noobestroutes.ui.ColorPalette.elementBackground
@@ -14,7 +15,6 @@ import noobestroutes.utils.render.TextAlign
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
 import noobestroutes.utils.round
-import net.minecraft.client.renderer.GlStateManager
 
 /**
  * Renders all the modules.
@@ -72,7 +72,8 @@ class SettingElementSlider(setting: NumberSetting<*>) :
         setting.roundTo,
         setting.min,
         setting.max,
-        setting.valueDouble
+        setting.valueDouble,
+        setting.unit
     ).apply {
         addValueChangeListener { boxValue ->
             setting.setValueFromNumber(boxValue)

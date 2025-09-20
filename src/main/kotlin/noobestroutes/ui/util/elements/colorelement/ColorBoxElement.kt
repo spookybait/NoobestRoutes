@@ -1,12 +1,12 @@
 package noobestroutes.ui.util.elements.colorelement
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants
 import noobestroutes.utils.render.*
 import noobestroutes.utils.render.ColorUtil.hsbMax
 import noobestroutes.utils.render.ColorUtil.withAlpha
-import net.minecraft.client.renderer.GlStateManager
 
 class ColorBoxElement(
     x: Float, y: Float,
@@ -62,14 +62,12 @@ class ColorBoxElement(
     }
 
     var dragging = false
-    val isHovered
-        get() = isAreaHovered(
-            0f,
-            0f,
-            ColorElementsConstants.COLOR_BOX_SIZE,
-            ColorElementsConstants.COLOR_BOX_SIZE
-        )
-
+    val isHovered get() = isAreaHovered(
+        0f,
+        0f,
+        ColorElementsConstants.COLOR_BOX_SIZE,
+        ColorElementsConstants.COLOR_BOX_SIZE
+    )
     override fun mouseClicked(mouseButton: Int): Boolean {
         if (mouseButton != 0) return false
         if (isHovered) {

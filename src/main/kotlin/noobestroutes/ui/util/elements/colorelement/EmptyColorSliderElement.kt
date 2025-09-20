@@ -1,10 +1,10 @@
 package noobestroutes.ui.util.elements.colorelement
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants
 import noobestroutes.utils.render.Color
 import noobestroutes.utils.render.rectangleOutline
-import net.minecraft.client.renderer.GlStateManager
 
 class EmptyColorSliderElement(
     x: Float, y: Float, val color: Color, val thickness: Float
@@ -12,10 +12,7 @@ class EmptyColorSliderElement(
 
     override fun draw() {
         GlStateManager.pushMatrix()
-        translate(
-            x - ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF,
-            y - ColorElementsConstants.COLOR_SLIDER_HEIGHT_HALF
-        )
+        translate(x - ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF, y - ColorElementsConstants.COLOR_SLIDER_HEIGHT_HALF)
         rectangleOutline(
             0f,
             0f,

@@ -1,11 +1,11 @@
 package noobestroutes.ui.util.elements.colorelement
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants
 import noobestroutes.utils.render.*
 import noobestroutes.utils.render.ColorUtil.hsbMax
-import net.minecraft.client.renderer.GlStateManager
 
 class ColorSliderElement(
     x: Float, y: Float,
@@ -63,13 +63,12 @@ class ColorSliderElement(
     }
 
 
-    private inline val isHovered
-        get() = isAreaHovered(
-            -ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF,
-            -ColorElementsConstants.COLOR_SLIDER_HEIGHT_HALF,
-            ColorElementsConstants.COLOR_SLIDER_WIDTH,
-            ColorElementsConstants.COLOR_SLIDER_HEIGHT,
-        )
+    private inline val isHovered get() = isAreaHovered(
+        -ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF,
+        -ColorElementsConstants.COLOR_SLIDER_HEIGHT_HALF,
+        ColorElementsConstants.COLOR_SLIDER_WIDTH,
+        ColorElementsConstants.COLOR_SLIDER_HEIGHT,
+    )
     var dragging: Boolean = false
 
     override fun mouseClicked(mouseButton: Int): Boolean {

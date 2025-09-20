@@ -1,6 +1,6 @@
 package noobestroutes.ui
 
-import noobestroutes.features.impl.render.ClickGUIModule
+import noobestroutes.features.render.ClickGUIModule
 import noobestroutes.font.FontType
 import noobestroutes.utils.render.Color
 
@@ -20,11 +20,14 @@ object ColorPalette {
         Color(239, 239, 239),
         ClickGUIModule.color,
         Color(0, 0, 0, 0.43f),
-        Color(12, 12, 12, 0.6f),
+        Color(12, 12, 12,  0.6f),
         Color(28, 28, 28, 0.35f),
         Color(26, 26, 26, 0.42f),
         FontType.NUNITO
     )
+
+
+
 
 
     var currentColorPalette: Palette = defaultPalette

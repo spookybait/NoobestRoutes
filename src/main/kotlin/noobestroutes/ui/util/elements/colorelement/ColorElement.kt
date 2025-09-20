@@ -1,5 +1,7 @@
 package noobestroutes.ui.util.elements.colorelement
 
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.texture.DynamicTexture
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.UiElement
@@ -7,8 +9,6 @@ import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsCon
 import noobestroutes.utils.render.Color
 import noobestroutes.utils.render.RenderUtils
 import noobestroutes.utils.render.roundedRectangle
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.texture.DynamicTexture
 
 class ColorElement(
     x: Float,
@@ -33,7 +33,7 @@ class ColorElement(
         const val COLOR_BOX_CIRCLE_RADIUS = 8f
         const val COLOR_BOX_CIRCLE_THICKNESS = COLOR_BOX_CIRCLE_RADIUS * 0.225f
 
-        val ALPHA_BACKGROUND = DynamicTexture(RenderUtils.loadBufferedImage("/assets/ui/alphaBackground.png"))
+        val ALPHA_BACKGROUND = DynamicTexture(RenderUtils.loadBufferedImage("/assets/ui/AlphaBackground.png"))
         val HUE_GRADIENT = DynamicTexture(RenderUtils.loadBufferedImage("/assets/ui/HueGradient.png"))
         const val COLOR_SLIDER_HEIGHT = 150f
         const val COLOR_SLIDER_WIDTH = 14f

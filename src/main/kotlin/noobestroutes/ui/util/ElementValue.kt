@@ -9,7 +9,6 @@ interface ElementValue<T> {
             listener.invoke(elementValue)
         }
     }
-
     fun invokeValueChangeListeners() {
         for (listener in elementValueChangeListeners) {
             listener.invoke(elementValue)
@@ -19,8 +18,7 @@ interface ElementValue<T> {
     fun getValue(): T {
         return elementValue
     }
-
-    fun addValueChangeListener(listener: (T) -> Unit) {
+    fun addValueChangeListener(listener: (T) -> Unit){
         elementValueChangeListeners.add(listener)
     }
 

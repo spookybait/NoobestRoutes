@@ -134,8 +134,7 @@ object GaussianBlurShader {
 
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX)
         worldRenderer.pos(x.toDouble(), (y + height).toDouble(), 0.0).tex(u1.toDouble(), v1.toDouble()).endVertex()
-        worldRenderer.pos((x + width).toDouble(), (y + height).toDouble(), 0.0).tex(u2.toDouble(), v1.toDouble())
-            .endVertex()
+        worldRenderer.pos((x + width).toDouble(), (y + height).toDouble(), 0.0).tex(u2.toDouble(), v1.toDouble()).endVertex()
         worldRenderer.pos((x + width).toDouble(), y.toDouble(), 0.0).tex(u2.toDouble(), v2.toDouble()).endVertex()
         worldRenderer.pos(x.toDouble(), y.toDouble(), 0.0).tex(u1.toDouble(), v2.toDouble()).endVertex()
         tessellator.draw()

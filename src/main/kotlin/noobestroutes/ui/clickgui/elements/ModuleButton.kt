@@ -1,10 +1,13 @@
 package noobestroutes.ui.clickgui.elements
 
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.texture.DynamicTexture
 import noobestroutes.Core
 import noobestroutes.features.Module
 import noobestroutes.features.settings.impl.*
 import noobestroutes.font.FontRenderer
 import noobestroutes.ui.ColorPalette
+import noobestroutes.ui.ColorPalette.TEXT_OFFSET
 import noobestroutes.ui.ColorPalette.clickGUIColor
 import noobestroutes.ui.clickgui.elements.menu.*
 import noobestroutes.ui.util.UiElement
@@ -13,13 +16,15 @@ import noobestroutes.ui.util.animations.impl.CubicBezierAnimation
 import noobestroutes.utils.render.*
 import noobestroutes.utils.render.ColorUtil.brighter
 import noobestroutes.utils.render.ColorUtil.darkerIf
-import net.minecraft.client.renderer.GlStateManager
+import noobestroutes.utils.render.RenderUtils.loadBufferedImage
 import org.lwjgl.input.Keyboard
 import kotlin.math.floor
 
 class  ModuleButton(y: Float, val module: Module) : UiElement(0f, y){
     companion object {
         const val BUTTON_HEIGHT = 32f
+        const val HALF_BUTTON_HEIGHT = BUTTON_HEIGHT * 0.5f
+        val warningIcon = DynamicTexture(loadBufferedImage("/assets/ui/WarningIcon.png"))
     }
 
     init {
@@ -69,8 +74,6 @@ class  ModuleButton(y: Float, val module: Module) : UiElement(0f, y){
         if (System.currentTimeMillis() - lastButtonHovered > 1000L) {
             ClickGUIBase.setDescription(module.description, getEffectiveX(), getEffectiveY())
         }
-
-
     }
 
     override fun doHandleDraw() {
@@ -79,7 +82,9 @@ class  ModuleButton(y: Float, val module: Module) : UiElement(0f, y){
         GlStateManager.pushMatrix()
         translate(0f, y)
         roundedRectangle(0f, 0f, width, BUTTON_HEIGHT, ColorPalette.moduleButtonColor)
-        text(module.name, width * 0.5, BUTTON_HEIGHT * 0.5, color, 14f, FontRenderer.REGULAR, TextAlign.Middle)
+        text(module.name, width * 0.5, HALF_BUTTON_HEIGHT, color, 14f, FontRenderer.REGULAR, TextAlign.Middle)
+
+        if (module.warning) drawDynamicTexture(warningIcon, TEXT_OFFSET, 0f, 28f, 28f)
 
 
         if (!extendAnim.isAnimating() && !extended) {

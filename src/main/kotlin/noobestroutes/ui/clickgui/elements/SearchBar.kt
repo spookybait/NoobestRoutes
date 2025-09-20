@@ -1,8 +1,10 @@
 package noobestroutes.ui.clickgui.elements
 
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.texture.DynamicTexture
 import noobestroutes.Core
 import noobestroutes.features.ModuleManager.modules
-import noobestroutes.features.impl.render.ClickGUIModule
+import noobestroutes.features.render.ClickGUIModule
 import noobestroutes.ui.ColorPalette.clickGUIColor
 import noobestroutes.ui.ColorPalette.moduleButtonColor
 import noobestroutes.ui.ColorPalette.titlePanelColor
@@ -26,13 +28,11 @@ import noobestroutes.utils.render.ColorUtil.brighter
 import noobestroutes.utils.render.ColorUtil.withAlpha
 import noobestroutes.utils.render.RenderUtils.loadBufferedImage
 import noobestroutes.utils.round
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.texture.DynamicTexture
 import org.lwjgl.input.Keyboard
 import kotlin.math.floor
 
 object SearchBar : UiElement(ClickGUIModule.searchBarX.value, ClickGUIModule.searchBarY.value) {
-    private val searchIcon = DynamicTexture(loadBufferedImage("/assets/ui/searchIcon.png"))
+    private val searchIcon = DynamicTexture(loadBufferedImage("/assets/ui/SearchIcon.png"))
     private const val SEARCH_ICON_BASE_SIZE = 32f
     private const val SEARCH_ICON_BASE_SIZE_HALF = SEARCH_ICON_BASE_SIZE * 0.5f
     private const val SEARCH_ICON_BASE_STARTING_POSITION = WIDTH * 0.9f
@@ -44,7 +44,7 @@ object SearchBar : UiElement(ClickGUIModule.searchBarX.value, ClickGUIModule.sea
     private const val SEARCH_UNDERLINE_HEIGHT = 4f
     private const val SEARCH_UNDERLINE_Y = SEARCH_ICON_HITBOX_HEIGHT + SEARCH_ICON_BASE_SIZE - SEARCH_UNDERLINE_HEIGHT
 
-    private val xIcon = DynamicTexture(loadBufferedImage("/assets/ui/xIcon.png"))
+    private val xIcon = DynamicTexture(loadBufferedImage("/assets/ui/XIcon.png"))
     private const val CLOSE_ICON_HITBOX_SIZE = 18f
     private const val CLOSE_ICON_HITBOX_X = SEARCH_ICON_BASE_STARTING_POSITION - CLOSE_ICON_HITBOX_SIZE * 0.5f
     private const val CLOSE_ICON_HITBOX_Y = HEIGHT * 0.4555f - CLOSE_ICON_HITBOX_SIZE * 0.5f

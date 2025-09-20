@@ -1,5 +1,6 @@
 package noobestroutes.ui.util.elements.colorelement
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.UiElement
@@ -13,7 +14,6 @@ import noobestroutes.utils.render.Color.Companion.HEX_REGEX
 import noobestroutes.utils.render.ColorUtil.darker
 import noobestroutes.utils.render.TextAlign
 import noobestroutes.utils.render.roundedRectangle
-import net.minecraft.client.renderer.GlStateManager
 
 class ColorPopoutElement(
     x: Float,
@@ -23,8 +23,7 @@ class ColorPopoutElement(
 ) : UiElement(x, y), ElementValue<Color> {
     override val elementValueChangeListeners = mutableListOf<(Color) -> Unit>()
 
-    private val popupWidth =
-        ColorElementsConstants.COLOR_POPOUT_WIDTH + if (alphaEnabled) ColorElementsConstants.COLOR_POPOUT_ALPHA_WIDTH else 0f
+    private val popupWidth = ColorElementsConstants.COLOR_POPOUT_WIDTH + if (alphaEnabled) ColorElementsConstants.COLOR_POPOUT_ALPHA_WIDTH else 0f
 
     init {
         addChildren(
@@ -77,8 +76,7 @@ class ColorPopoutElement(
             ).apply {
                 addValueChangeListener {
                     if (!HEX_REGEX.matches(it)) {
-                        elementValue =
-                            (parent as? ColorPopoutElement)?.elementValue?.hex ?: return@addValueChangeListener
+                        elementValue = (parent as? ColorPopoutElement)?.elementValue?.hex ?: return@addValueChangeListener
                         return@addValueChangeListener
                     }
                     val r = it.substring(0, 2).toInt(16)
@@ -91,29 +89,14 @@ class ColorPopoutElement(
         )
 
 
-        addChild(ColorBoxElement(0f, 0f, elementValue).apply {
-            addValueChangeListener {
-                updateColor()
-            }
-        })
+        addChild(ColorBoxElement(0f, 0f, elementValue).apply { addValueChangeListener {
+             updateColor()
+        } })
         addChild(ColorSliderElement(0f, 0f, elementValue).apply { addValueChangeListener { updateColor() } })
-        if (alphaEnabled) addChild(
-            AlphaSliderElement(
-                0f,
-                0f,
-                elementValue
-            ).apply { addValueChangeListener { updateColor() } })
+        if (alphaEnabled) addChild(AlphaSliderElement(0f, 0f, elementValue).apply { addValueChangeListener { updateColor() } })
     }
 
-    fun updateColor(
-        r: Int? = null,
-        g: Int? = null,
-        b: Int? = null,
-        a: Float? = null,
-        hue: Float? = null,
-        saturation: Float? = null,
-        brightness: Float? = null
-    ) {
+    fun updateColor(r: Int? = null, g: Int? = null, b: Int? = null, a: Float? = null, hue: Float? = null, saturation: Float? = null, brightness: Float? = null) {
         r?.let { elementValue.r = it }
         g?.let { elementValue.g = it }
         b?.let { elementValue.b = it }
@@ -128,7 +111,7 @@ class ColorPopoutElement(
     override fun updateChildren() {
         for (i in 0 until uiChildren.size) {
             val child = uiChildren[i]
-            when (i) {
+            when(i) {
                 0 -> (child as NumberBoxElement).elementValue = this.elementValue.r.toDouble()
                 1 -> (child as NumberBoxElement).elementValue = this.elementValue.g.toDouble()
                 2 -> (child as NumberBoxElement).elementValue = this.elementValue.b.toDouble()
@@ -141,8 +124,7 @@ class ColorPopoutElement(
     override fun draw() {
         GlStateManager.pushMatrix()
         translate(x, y)
-        val width =
-            ColorElementsConstants.COLOR_POPOUT_WIDTH + if (alphaEnabled) ColorElementsConstants.COLOR_POPOUT_ALPHA_WIDTH else 0f
+        val width = ColorElementsConstants.COLOR_POPOUT_WIDTH + if (alphaEnabled) ColorElementsConstants.COLOR_POPOUT_ALPHA_WIDTH else 0f
         val topRX = width * -0.5f
         val topRY = ColorElementsConstants.COLOR_POPOUT_HEIGHT * -0.5f
         roundedRectangle(

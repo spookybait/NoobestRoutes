@@ -1,9 +1,9 @@
 package noobestroutes.ui.util
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.Core.logger
 import noobestroutes.ui.util.shader.GaussianBlurShader
 import noobestroutes.utils.render.*
-import net.minecraft.client.renderer.GlStateManager
 
 
 abstract class UiElement(var x: Float, var y: Float) {
@@ -41,23 +41,17 @@ abstract class UiElement(var x: Float, var y: Float) {
     private val stencilState = StencilState()
     private var childrenScissor: Scissor? = null
 
-    protected open fun doDrawChildren() {
+    protected open fun doDrawChildren(){
         for (i in uiChildren.indices) {
             uiChildren[i].doHandleDraw()
         }
     }
 
-    open fun updateChildren() {}
+    open fun updateChildren(){}
 
-    open fun updatePosition(x: Float, y: Float) {
-        val deltaX = x - this.x
-        val deltaY = y - this.y
+    open fun updatePosition(x: Float, y: Float){
         this.x = x
         this.y = y
-        for (i in uiChildren.indices) {
-            val child = uiChildren[i]
-            child.updatePosition(child.x + deltaX, child.y + deltaY)
-        }
     }
 
     open fun doHandleDraw() {
@@ -101,7 +95,7 @@ abstract class UiElement(var x: Float, var y: Float) {
         return onScroll(amount)
     }
 
-    open fun handleMouseClicked(mouseButton: Int): Boolean {
+    open fun handleMouseClicked(mouseButton: Int): Boolean{
         if (!enabled || !visible) return false
 
         for (i in uiChildren.indices) {
@@ -155,37 +149,13 @@ abstract class UiElement(var x: Float, var y: Float) {
         uiChildren.add(child)
     }
 
-    protected fun blurRoundedRectangle(
-        x: Number,
-        y: Number,
-        w: Number,
-        h: Number,
-        topL: Number,
-        topR: Number,
-        botL: Number,
-        botR: Number,
-        edgeSoftness: Number
-    ) {
+    protected fun blurRoundedRectangle(x: Number, y: Number, w: Number, h: Number, topL: Number, topR: Number, botL: Number, botR: Number, edgeSoftness: Number){
         val effX = getEffectiveX()
         val effY = getEffectiveY()
 
         GlStateManager.translate(-effX, -effY, -1f)
         stencil {
-            roundedRectangle(
-                effX + x.toFloat(),
-                effY + y.toFloat(),
-                w,
-                h,
-                Color.WHITE,
-                Color.TRANSPARENT,
-                Color.TRANSPARENT,
-                0f,
-                topL,
-                topR,
-                botL,
-                botR,
-                edgeSoftness
-            )
+            roundedRectangle(effX + x.toFloat(),effY + y.toFloat(), w, h, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT, 0f, topL, topR, botL, botR, edgeSoftness)
         }
         GaussianBlurShader.blurredBackground(effX + x.toFloat(), effY + y.toFloat(), w.toFloat(), h.toFloat(), 4f)
         popStencil()
@@ -194,15 +164,14 @@ abstract class UiElement(var x: Float, var y: Float) {
     }
 
 
-    protected fun translate(x: Float, y: Float) {
+    protected fun translate(x: Float, y: Float){
         deltaX = x * globalXScale
         deltaY = y * globalYScale
         refreshEffectiveValues = true
         updateChildrenTranslation()
         GlStateManager.translate(x, y, 0f)
     }
-
-    protected fun scale(x: Float, y: Float) {
+    protected fun scale(x: Float, y: Float){
         this.deltaScaleX = x
         this.deltaScaleY = y
         refreshEffectiveValues = true
@@ -214,15 +183,7 @@ abstract class UiElement(var x: Float, var y: Float) {
         childrenScissor = Scissor(x, y, w, h, 0)
     }
 
-    protected fun stencilChildren(
-        x: Float,
-        y: Float,
-        w: Float,
-        h: Float,
-        radius: Number = 0f,
-        edgeSoftness: Number = 0.5f,
-        inverse: Boolean = false
-    ) {
+    protected fun stencilChildren(x: Float, y: Float, w: Float, h: Float, radius: Number = 0f, edgeSoftness: Number = 0.5f, inverse: Boolean = false){
         stencilState.apply {
             active = true
             this.x = x
@@ -235,7 +196,7 @@ abstract class UiElement(var x: Float, var y: Float) {
         }
     }
 
-    protected fun updateChildrenTranslation() {
+    protected fun updateChildrenTranslation(){
         val newXOrigin = xOrigin + deltaX
         val newYOrigin = yOrigin + deltaY
 
@@ -248,12 +209,12 @@ abstract class UiElement(var x: Float, var y: Float) {
         }
     }
 
-    fun setGlobalScale(x: Float, y: Float) {
+    fun setGlobalScale(x: Float, y: Float){
         globalXScale = x
         globalYScale = y
     }
 
-    protected fun updateChildrenScale() {
+    protected fun updateChildrenScale(){
         val newXScale = deltaScaleX * globalXScale
         val newYScale = deltaScaleY * globalYScale
 
@@ -280,24 +241,21 @@ abstract class UiElement(var x: Float, var y: Float) {
         updateEffectiveValues()
         return cachedEffectiveX
     }
-
     open fun getEffectiveY(): Float {
         updateEffectiveValues()
         return cachedEffectiveY
     }
-
     open fun getEffectiveXScale(): Float {
         updateEffectiveValues()
         return cachedEffectiveXScale
     }
-
     open fun getEffectiveYScale(): Float {
         updateEffectiveValues()
         return cachedEffectiveYScale
     }
 
 
-    protected fun debugMouse(w: Float, h: Float) {
+    protected fun debugMouse(w: Float, h: Float){
         logger.info("New Box, xOrigin: $xOrigin, yOrigin: $yOrigin")
         logger.info("x: ${getEffectiveX() + x * getEffectiveXScale()}, y: ${getEffectiveY() + y * getEffectiveYScale()}, w: ${w * getEffectiveXScale()}, h: ${h * getEffectiveYScale()}| mouseX: ${MouseUtils.mouseX}, mouseY: ${MouseUtils.mouseY}")
     }
@@ -319,20 +277,12 @@ abstract class UiElement(var x: Float, var y: Float) {
      * @param invert If true, returns the inverted percentage (1.0 = left, 0.0 = right).
      */
     protected fun getMouseXPercentageInBounds(x: Float, w: Float, invert: Boolean = false): Float {
-        val relative =
-            ((MouseUtils.mouseX - (x + getEffectiveX()) * getEffectiveXScale()) / (w * getEffectiveXScale())).coerceIn(
-                0f,
-                1f
-            )
+        val relative = ((MouseUtils.mouseX - (x + getEffectiveX()) * getEffectiveXScale()) / (w * getEffectiveXScale())).coerceIn(0f, 1f)
         return if (invert) 1f - relative else relative
     }
 
     protected fun getMouseYPercentageInBounds(y: Float, h: Float, invert: Boolean = false): Float {
-        val relative =
-            ((MouseUtils.mouseY - (y + getEffectiveY()) * getEffectiveYScale()) / (h * getEffectiveYScale())).coerceIn(
-                0f,
-                1f
-            )
+        val relative = ((MouseUtils.mouseY - (y + getEffectiveY()) * getEffectiveYScale()) / (h * getEffectiveYScale())).coerceIn(0f, 1f)
         return if (invert) 1f - relative else relative
     }
 }

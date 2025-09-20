@@ -1,10 +1,10 @@
 package noobestroutes.ui.util.shader
 
-import noobestroutes.Core.mc
-import noobestroutes.utils.render.Color
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.shader.Framebuffer
+import noobestroutes.Core.mc
+import noobestroutes.utils.render.Color
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.opengl.GL20.glUseProgram
 

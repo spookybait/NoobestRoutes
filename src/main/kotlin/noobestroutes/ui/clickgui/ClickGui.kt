@@ -1,11 +1,14 @@
 package noobestroutes.ui.clickgui
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.config.Config
+import noobestroutes.features.render.ClickGUIModule
 import noobestroutes.ui.Screen
 import noobestroutes.ui.clickgui.elements.ClickGUIBase
 import noobestroutes.ui.clickgui.elements.SearchBar
-import net.minecraft.client.renderer.GlStateManager
+import noobestroutes.ui.util.shader.GaussianBlurShader
 import org.lwjgl.input.Mouse
+import org.lwjgl.opengl.GL11
 import kotlin.math.sign
 
 object ClickGui : Screen() {

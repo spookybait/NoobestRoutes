@@ -1,5 +1,6 @@
 package noobestroutes.ui.util.elements
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.ColorPalette.buttonColor
 import noobestroutes.ui.ColorPalette.clickGUIColor
@@ -11,7 +12,6 @@ import noobestroutes.utils.render.ColorUtil.darkerIf
 import noobestroutes.utils.render.TextAlign
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
-import net.minecraft.client.renderer.GlStateManager
 
 
 class DualElement(
@@ -51,7 +51,6 @@ class DualElement(
         const val DUAL_RIGHT_TEXT_POSITION = (DUAL_ELEMENT_WIDTH * 0.75) - DUAL_ELEMENT_HALF_WIDTH
 
     }
-
     override val elementValueChangeListeners = mutableListOf<(Boolean) -> Unit>()
 
     override fun draw() {
@@ -76,22 +75,8 @@ class DualElement(
             radius = 5f
         )
 
-        text(
-            left,
-            DUAL_LEFT_TEXT_POSITION,
-            0f,
-            ColorPalette.textColor.darkerIf(isLeftHovered),
-            12f,
-            align = TextAlign.Middle
-        )
-        text(
-            right,
-            DUAL_RIGHT_TEXT_POSITION,
-            0f,
-            ColorPalette.textColor.darkerIf(isRightHovered),
-            12f,
-            align = TextAlign.Middle
-        )
+        text(left, DUAL_LEFT_TEXT_POSITION, 0f, ColorPalette.textColor.darkerIf(isLeftHovered), 12f, align = TextAlign.Middle)
+        text(right, DUAL_RIGHT_TEXT_POSITION, 0f, ColorPalette.textColor.darkerIf(isRightHovered), 12f, align = TextAlign.Middle)
 
         GlStateManager.popMatrix()
     }

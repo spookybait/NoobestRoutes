@@ -1,24 +1,17 @@
 package noobestroutes.ui.util.elements
 
 
+import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.Keybinding
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.animations.impl.ColorAnimation
 import noobestroutes.utils.render.*
-import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse
 
-class KeybindElement(
-    override var elementValue: Keybinding,
-    x: Float,
-    y: Float,
-    val xScale: Float,
-    val yScale: Float,
-    val alignment: TextAlign = TextAlign.Middle
-) :
+class KeybindElement(override var elementValue: Keybinding, x: Float, y: Float, val xScale: Float, val yScale: Float, val alignment: TextAlign = TextAlign.Middle) :
     UiElement(x, y), ElementValue<Keybinding> {
 
     companion object {
@@ -33,10 +26,10 @@ class KeybindElement(
     var listening = false
 
 
-    private inline val isHovered
-        get() = isHoveredKeybind(
-            elementValue.key,
-        )
+
+    private inline val isHovered get() = isHoveredKeybind(
+        elementValue.key,
+    )
 
     private fun isHoveredKeybind(key: Int): Boolean {
         val value = if (key > 0) Keyboard.getKeyName(key) ?: "Err"
@@ -110,6 +103,9 @@ class KeybindElement(
         }
         return false
     }
+
+
+
 
 
 }
