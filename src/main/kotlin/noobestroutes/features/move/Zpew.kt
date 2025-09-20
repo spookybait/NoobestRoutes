@@ -24,7 +24,7 @@ import noobestroutes.events.impl.PacketEvent
 import noobestroutes.events.impl.WorldChangeEvent
 import noobestroutes.features.Category
 import noobestroutes.features.Module
-import noobestroutes.features.render.impl.ClickGUIModule
+import noobestroutes.features.impl.render.ClickGUIModule
 import noobestroutes.features.settings.DevOnly
 import noobestroutes.features.settings.Setting.Companion.withDependency
 import noobestroutes.features.settings.impl.*
