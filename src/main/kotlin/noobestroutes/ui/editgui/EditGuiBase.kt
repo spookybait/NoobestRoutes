@@ -1,6 +1,5 @@
 package noobestroutes.ui.editgui
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.editgui.elements.EditGuiSliderElement
 import noobestroutes.ui.editgui.elements.EditGuiSwitchElement
@@ -9,7 +8,7 @@ import noobestroutes.ui.util.UiElement
 import noobestroutes.utils.render.Color
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
-import kotlin.math.floor
+import net.minecraft.client.renderer.GlStateManager
 
 class EditGuiBase() : UiElement(0f, 0f) {
     var height = 0f

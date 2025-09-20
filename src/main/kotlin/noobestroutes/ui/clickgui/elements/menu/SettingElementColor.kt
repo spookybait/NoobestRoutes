@@ -1,6 +1,5 @@
 package noobestroutes.ui.clickgui.elements.menu
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.ColorSetting
 import noobestroutes.font.FontRenderer
 import noobestroutes.ui.ColorPalette
@@ -12,20 +11,17 @@ import noobestroutes.ui.clickgui.elements.ModuleButton
 import noobestroutes.ui.clickgui.elements.Panel
 import noobestroutes.ui.clickgui.elements.SettingElement
 import noobestroutes.ui.util.animations.impl.CubicBezierAnimation
-import noobestroutes.ui.util.elements.colorelement.AlphaSliderElement
-import noobestroutes.ui.util.elements.colorelement.ColorBoxElement
-import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants
+import noobestroutes.ui.util.elements.colorelement.*
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants.COLOR_BOX_SIZE
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants.COLOR_POPOUT_GAP
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants.COLOR_POPOUT_GAP_THIRD
 import noobestroutes.ui.util.elements.colorelement.ColorElement.ColorElementsConstants.TEXT_BOX_HEIGHT
-import noobestroutes.ui.util.elements.colorelement.ColorPopoutElement
-import noobestroutes.ui.util.elements.colorelement.ColorSliderElement
 import noobestroutes.ui.util.elements.textElements.AccessorBasedNumberBoxElement
 import noobestroutes.ui.util.elements.textElements.TextBoxElement
 import noobestroutes.utils.Utils.COLOR_NORMALIZER
 import noobestroutes.utils.render.*
 import noobestroutes.utils.render.Color.Companion.HEX_REGEX
+import net.minecraft.client.renderer.GlStateManager
 
 /**
  * Renders all the modules.
@@ -52,9 +48,9 @@ class SettingElementColor(setting: ColorSetting) :
         private const val RGB_BOX_WIDTH = (HEX_WIDTH - COLOR_POPOUT_GAP * 4f) / 3
         private const val RGB_BOX_GAP = (Panel.WIDTH - COLOR_POPOUT_GAP) / 3
         private const val SHIFT = 1f //I am shifting it over by 1 because of the green line, makes it look even.
-        private const val GAP = (Panel.WIDTH - COLOR_POPOUT_GAP * 2f - COLOR_BOX_SIZE - ColorElementsConstants.COLOR_SLIDER_WIDTH * 2f) / 3f
-        private const val COLOR_SLIDER_X_POSITION = COLOR_POPOUT_GAP * 2f + COLOR_BOX_SIZE + ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF
-        private const val ALPHA_SLIDER_X_POSITION = COLOR_POPOUT_GAP * 3f + COLOR_BOX_SIZE + ColorElementsConstants.COLOR_SLIDER_WIDTH * 1.5f
+        private const val GAP = (Panel.WIDTH - COLOR_POPOUT_GAP * 2f - COLOR_BOX_SIZE - ColorElement.ColorElementsConstants.COLOR_SLIDER_WIDTH * 2f) / 3f
+        private const val COLOR_SLIDER_X_POSITION = COLOR_POPOUT_GAP * 2f + COLOR_BOX_SIZE + ColorElement.ColorElementsConstants.COLOR_SLIDER_WIDTH_HALF
+        private const val ALPHA_SLIDER_X_POSITION = COLOR_POPOUT_GAP * 3f + COLOR_BOX_SIZE + ColorElement.ColorElementsConstants.COLOR_SLIDER_WIDTH * 1.5f
     }
 
 
@@ -92,24 +88,11 @@ class SettingElementColor(setting: ColorSetting) :
         }
     }
     val rgbElements = listOf("R", "G", "B").mapIndexed { index, label ->
-
-        val y = ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP * 2f + COLOR_BOX_SIZE
-        val x = COLOR_POPOUT_GAP + RGB_BOX_GAP * index + SHIFT + COLOR_POPOUT_GAP_THIRD * (-1 * (-index + 1))
-
-        /*
-                    for (i in rgbElements.indices) {
-                rgbElements[i].updatePosition(
-                    COLOR_POPOUT_GAP + RGB_BOX_GAP * i + SHIFT + COLOR_POPOUT_GAP_THIRD * (-1 * (-i + 1)),
-                    COLOR_POPOUT_GAP * 2f + COLOR_BOX_SIZE + ModuleButton.BUTTON_HEIGHT
-                )
-            }
-         */
-
         AccessorBasedNumberBoxElement(
-            label, x, y,
-            RGB_BOX_WIDTH, ColorElementsConstants.TEXT_BOX_HEIGHT,
+            label, 0f, 0f,
+            RGB_BOX_WIDTH, ColorElement.ColorElementsConstants.TEXT_BOX_HEIGHT,
             12f, TextAlign.Left, 5f, 6f,
-            ColorPalette.textColor,
+            textColor,
             3,
             TextBoxElement.TextBoxType.GAP,
             2f,
@@ -117,41 +100,49 @@ class SettingElementColor(setting: ColorSetting) :
             0.0,
             255.0,
             when (index) {
-                0 -> {{ color.r.toDouble() }}
-                1 -> {{color.g.toDouble()}}
-                else -> {{color.b.toDouble()}}
+                0 -> {
+                    { color.r.toDouble() }
+                }
+
+                1 -> {
+                    { color.g.toDouble() }
+                }
+
+                else -> {
+                    { color.b.toDouble() }
+                }
             },
             when (index) {
-                0 -> {{
-                    color.r = it.toInt()
-                    updateHexElement()
-                }}
-                1 -> {{
-                    color.g = it.toInt()
-                    updateHexElement()
-                }}
-                else -> {{
-                    color.b = it.toInt()
-                    updateHexElement()
-                }}
+                0 -> {
+                    {
+                        color.r = it.toInt()
+                        updateHexElement()
+                    }
+                }
+
+                1 -> {
+                    {
+                        color.g = it.toInt()
+                        updateHexElement()
+                    }
+                }
+
+                else -> {
+                    {
+                        color.b = it.toInt()
+                        updateHexElement()
+                    }
+                }
             }
         )
     }
     private val colorBox = ColorBoxElement(
-        GAP + SHIFT + ColorElementsConstants.COLOR_BOX_SIZE_HALF,
-        ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP,
+        GAP + SHIFT + ColorElement.ColorElementsConstants.COLOR_BOX_SIZE_HALF,
+        ColorElement.ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP,
         color
     ).apply { addValueChangeListener { updateHexElement() } }
-    private val colorSlider = ColorSliderElement(
-        COLOR_SLIDER_X_POSITION,
-        ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP,
-        color
-    ).apply { addValueChangeListener { updateHexElement() } }
-    private val alphaSlider = if (setting.allowAlpha) AlphaSliderElement(
-        ALPHA_SLIDER_X_POSITION,
-        ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP,
-        color
-    ).apply { addValueChangeListener { updateHexElement() } } else null
+    private val colorSlider = ColorSliderElement(0f, 0f, color).apply { addValueChangeListener { updateHexElement() } }
+    private val alphaSlider = if (setting.allowAlpha) AlphaSliderElement(0f, 0f, color).apply { addValueChangeListener { updateHexElement() } } else null
 
     fun updateHexElement(){
         hexElement.elementValue = getHex()
@@ -192,8 +183,21 @@ class SettingElementColor(setting: ColorSetting) :
         if (extended || extendAnimation.isAnimating()) {
             roundedRectangle(0f, ModuleButton.BUTTON_HEIGHT, w, getHeight() - ModuleButton.BUTTON_HEIGHT, elementBackground, 15f)
             stencilRoundedRectangle(2f, 0f, w, getHeight(), 0f, 0f, 0f, 0f, 0.5f, false)
+            for (i in rgbElements.indices) {
+                rgbElements[i].updatePosition(
+                    COLOR_POPOUT_GAP + RGB_BOX_GAP * i + SHIFT + COLOR_POPOUT_GAP_THIRD * (-1 * (-i + 1)),
+                    COLOR_POPOUT_GAP * 2f + COLOR_BOX_SIZE + ModuleButton.BUTTON_HEIGHT
+                )
+            }
 
-
+            colorSlider.updatePosition(
+                COLOR_SLIDER_X_POSITION,
+                ColorElement.ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP
+            )
+            alphaSlider?.updatePosition(
+                ALPHA_SLIDER_X_POSITION,
+                ColorElement.ColorElementsConstants.COLOR_BOX_SIZE_HALF + ModuleButton.BUTTON_HEIGHT + COLOR_POPOUT_GAP
+            )
             for (i in uiChildren.indices) {
                 uiChildren[i].apply {
                     visible = true

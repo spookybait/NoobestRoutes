@@ -1,11 +1,8 @@
 package noobestroutes.ui.editgui.elements
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
-import noobestroutes.ui.ColorPalette.elementBackground
 import noobestroutes.ui.ColorPalette.textColor
 import noobestroutes.ui.clickgui.elements.SettingElement.Companion.BORDER_OFFSET
-import noobestroutes.ui.clickgui.elements.menu.SettingElementSlider
 import noobestroutes.ui.editgui.EditGuiBase
 import noobestroutes.ui.editgui.EditGuiElement
 import noobestroutes.ui.util.UiElement
@@ -14,9 +11,9 @@ import noobestroutes.ui.util.elements.textElements.NumberBoxElement
 import noobestroutes.ui.util.elements.textElements.TextBoxElement
 import noobestroutes.utils.render.ColorUtil.darker
 import noobestroutes.utils.render.TextAlign
-import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
 import noobestroutes.utils.round
+import net.minecraft.client.renderer.GlStateManager
 
 class EditGuiSliderElement(
     val name: String,
@@ -27,7 +24,7 @@ class EditGuiSliderElement(
     val getter: () -> Double,
     val setter: (Double) -> Unit
 ) : UiElement(0f, 0f), EditGuiElement {
-    override val priority: Int = 2
+    override val priority: Int = 5
     override val isDoubleWidth: Boolean = true
     override val height: Float = 80f
 

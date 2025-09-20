@@ -40,7 +40,8 @@ abstract class Animation<T>(private var duration: Long) {
         }
         return false
     }
-    fun updateIsAnimating(){
+
+    fun updateIsAnimating() {
         if (clock.getTime() >= duration) {
             animating = false
         }

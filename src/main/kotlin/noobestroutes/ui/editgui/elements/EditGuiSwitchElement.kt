@@ -1,13 +1,12 @@
 package noobestroutes.ui.editgui.elements
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.clickgui.elements.SettingElement.Companion.BORDER_OFFSET
-import noobestroutes.ui.editgui.EditGuiBase
 import noobestroutes.ui.editgui.EditGuiElement
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.elements.SwitchElement
 import noobestroutes.utils.render.text
+import net.minecraft.client.renderer.GlStateManager
 
 class EditGuiSwitchElement(
     val name: String, val getter: () -> Boolean, val setter: (Boolean) -> Unit

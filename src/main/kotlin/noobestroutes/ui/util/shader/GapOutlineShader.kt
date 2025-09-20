@@ -2,9 +2,9 @@ package noobestroutes.ui.util.shader
 
 import gg.essential.elementa.components.UIBlock
 import gg.essential.universal.UMatrixStack
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.utils.Utils.COLOR_NORMALIZER
 import noobestroutes.utils.render.Color
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL20
 

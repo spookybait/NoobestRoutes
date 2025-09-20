@@ -1,12 +1,12 @@
 package noobestroutes.ui.clickgui.elements.menu
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.DualSetting
 import noobestroutes.ui.ColorPalette.elementBackground
 import noobestroutes.ui.clickgui.elements.ElementType
 import noobestroutes.ui.clickgui.elements.SettingElement
 import noobestroutes.ui.util.elements.DualElement
 import noobestroutes.utils.render.roundedRectangle
+import net.minecraft.client.renderer.GlStateManager
 
 /**
  * Renders all the modules.

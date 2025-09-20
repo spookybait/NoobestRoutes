@@ -1,12 +1,12 @@
 package noobestroutes.ui.util.elements
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.MouseUtils
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.animations.impl.CubicBezierAnimation
 import noobestroutes.utils.render.*
+import net.minecraft.client.renderer.GlStateManager
 
 class SelectorElement(
     x: Float,
@@ -30,10 +30,14 @@ class SelectorElement(
 
     override fun draw() {
         GlStateManager.pushMatrix()
-        GlStateManager.translate(x -SELECTOR_ELEMENT_HALF_WIDTH - SELECTOR_ELEMENT_CUSHIONING, y, 1f)
+        GlStateManager.translate(x - SELECTOR_ELEMENT_HALF_WIDTH - SELECTOR_ELEMENT_CUSHIONING, y, 1f)
         GlStateManager.scale(xScale, yScale, 1f)
         val height = if (extended || openAnimation.isAnimating()) {
-            openAnimation.get(0f, 1f, !extended) * (options.size - 1) * (SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING) + SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING
+            openAnimation.get(
+                0f,
+                1f,
+                !extended
+            ) * (options.size - 1) * (SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING) + SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING
         } else SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING * 2
 
 
@@ -98,14 +102,15 @@ class SelectorElement(
         return false
     }
 
-    private fun findHoveredOption() : Boolean{
+    private fun findHoveredOption(): Boolean {
         for (index in 0 until options.size) {
             if (MouseUtils.isAreaHovered(
                     x - SELECTOR_ELEMENT_WIDTH * 2f,
                     y + SELECTOR_ELEMENT_HALF_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING + (SELECTOR_ELEMENT_OPTION_HEIGHT + SELECTOR_ELEMENT_CUSHIONING * 0.5f) * index,
                     SELECTOR_ELEMENT_WIDTH,
                     SELECTOR_ELEMENT_OPTION_HEIGHT
-                )) {
+                )
+            ) {
                 if (openAnimation.start()) {
                     setValue(index)
                     extended = false

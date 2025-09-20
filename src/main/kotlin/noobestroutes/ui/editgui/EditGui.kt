@@ -1,10 +1,10 @@
 package noobestroutes.ui.editgui
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.Core
 import noobestroutes.config.Config
-import noobestroutes.features.render.ClickGUIModule
+import noobestroutes.features.impl.render.ClickGUIModule
 import noobestroutes.ui.Screen
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Mouse
 import kotlin.math.sign
 
@@ -13,9 +13,10 @@ object EditGui : Screen() {
     private var activeEditGuiBase: EditGuiBase? = null
 
     init {
-        EditGuiBase.editGuiBaseX = ClickGUIModule.editGuiX.value
-        EditGuiBase.editGuiBaseY = ClickGUIModule.editGuiY.value
+        EditGuiBase.Companion.editGuiBaseX = ClickGUIModule.editGuiX.value
+        EditGuiBase.Companion.editGuiBaseY = ClickGUIModule.editGuiY.value
     }
+
 
     fun openEditGui(editGuiBase: EditGuiBase){
         activeEditGuiBase = editGuiBase
@@ -58,8 +59,8 @@ object EditGui : Screen() {
     override fun onGuiClosed() {
         activeEditGuiBase?.onClose
         activeEditGuiBase = null
-        ClickGUIModule.editGuiX.value = EditGuiBase.editGuiBaseX
-        ClickGUIModule.editGuiY.value = EditGuiBase.editGuiBaseY
+        ClickGUIModule.editGuiX.value = EditGuiBase.Companion.editGuiBaseX
+        ClickGUIModule.editGuiY.value = EditGuiBase.Companion.editGuiBaseY
         Config.save()
     }
 }

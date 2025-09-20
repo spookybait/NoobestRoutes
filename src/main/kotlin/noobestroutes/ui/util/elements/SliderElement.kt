@@ -27,7 +27,7 @@ class SliderElement(
         get() = isAreaHovered(0f, 0f, w, h)
 
 
-    private var sliderPercentage: Float = ((elementValue- min) / (max - min)).toFloat()
+    private var sliderPercentage: Float = ((elementValue - min) / (max - min)).toFloat()
 
     private inline val color: Color
         get() = clickGUIColor.brighterIf(isHovered)

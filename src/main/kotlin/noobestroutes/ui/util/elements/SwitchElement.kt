@@ -1,7 +1,6 @@
 package noobestroutes.ui.util.elements
 
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.ColorPalette.buttonColor
 import noobestroutes.ui.util.ElementValue
@@ -12,6 +11,7 @@ import noobestroutes.utils.render.Color
 import noobestroutes.utils.render.ColorUtil.brighterIf
 import noobestroutes.utils.render.circle
 import noobestroutes.utils.render.roundedRectangle
+import net.minecraft.client.renderer.GlStateManager
 
 
 /**
@@ -22,7 +22,7 @@ class SwitchElement(
     override var elementValue: Boolean,
     x: Float,
     y: Float,
-    ) : UiElement(x, y), ElementValue<Boolean>  {
+) : UiElement(x, y), ElementValue<Boolean> {
 
     companion object {
         const val SWITCH_WIDTH = 34f
@@ -39,8 +39,9 @@ class SwitchElement(
     private val colorAnimation = ColorAnimation(250)
     private val linearAnimation = LinearAnimation<Float>(200)
 
-    internal inline val isHovered get() =
-        isAreaHovered(-SWITCH_WIDTH_HALF, -SWITCH_HEIGHT_HALF, SWITCH_WIDTH, SWITCH_HEIGHT)
+    internal inline val isHovered
+        get() =
+            isAreaHovered(-SWITCH_WIDTH_HALF, -SWITCH_HEIGHT_HALF, SWITCH_WIDTH, SWITCH_HEIGHT)
 
 
     override fun draw() {
@@ -50,7 +51,7 @@ class SwitchElement(
         val isHovered = this.isHovered
         val backgroundColor = colorAnimation.get(
             ColorPalette.clickGUIColor,
-            ColorPalette.buttonColor,
+            buttonColor,
             elementValue
         )//.darkerIf(isHovered, 0.9f)
 
@@ -64,10 +65,18 @@ class SwitchElement(
         )
 
         if (elementValue || linearAnimation.isAnimating()) {
-            roundedRectangle(-SWITCH_WIDTH_HALF, -SWITCH_HEIGHT_HALF, linearAnimation.get(SWITCH_WIDTH, 9f, elementValue), SWITCH_HEIGHT, backgroundColor, 9f)
+            roundedRectangle(
+                -SWITCH_WIDTH_HALF,
+                -SWITCH_HEIGHT_HALF,
+                linearAnimation.get(SWITCH_WIDTH, 9f, elementValue),
+                SWITCH_HEIGHT,
+                backgroundColor,
+                9f
+            )
         }
 
-        circle(linearAnimation.get(SWITCH_CIRCLE_START, SWITCH_CIRCLE_END, !elementValue), 0, SWITCH_CIRCLE_RADIUS,
+        circle(
+            linearAnimation.get(SWITCH_CIRCLE_START, SWITCH_CIRCLE_END, !elementValue), 0, SWITCH_CIRCLE_RADIUS,
             Color(220, 220, 220).brighterIf(isHovered)
         )
         GlStateManager.popMatrix()

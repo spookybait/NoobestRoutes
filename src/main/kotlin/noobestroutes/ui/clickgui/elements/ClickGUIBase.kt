@@ -1,10 +1,7 @@
 package noobestroutes.ui.clickgui.elements
 
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.texture.DynamicTexture
-import noobestroutes.Core.logger
 import noobestroutes.features.Category
-import noobestroutes.features.render.ClickGUIModule
+import noobestroutes.features.impl.render.ClickGUIModule
 import noobestroutes.font.FontRenderer.wrappedTextBounds
 import noobestroutes.ui.ColorPalette.elementBackground
 import noobestroutes.ui.ColorPalette.textColor
@@ -15,6 +12,8 @@ import noobestroutes.utils.render.RenderUtils.loadBufferedImage
 import noobestroutes.utils.render.rectangleOutline
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.wrappedText
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.texture.DynamicTexture
 
 object ClickGUIBase : UiElement(0f, 0f) {
     private val moveIcon = DynamicTexture(loadBufferedImage("/assets/ui/MovementIcon.png"))
@@ -25,11 +24,11 @@ object ClickGUIBase : UiElement(0f, 0f) {
     private val routesIcon = DynamicTexture(loadBufferedImage("/assets/ui/RoutesIcon.png"))
 
 
-
+//if (category == Category.FLOOR7) "Floor 7" else
     init {
         addChild(SearchBar)
         for (category in Category.entries) {
-            val name = if (category == Category.FLOOR7) "Floor 7" else category.name.lowercase().capitalizeFirst()
+            val name = category.name.lowercase().capitalizeFirst()
             val icon = when (name) {
                 "Render" -> renderIcon
                 "Floor 7" -> floor7Icon
@@ -63,6 +62,7 @@ object ClickGUIBase : UiElement(0f, 0f) {
             panel.updatingModuleButtons()
         }
         SearchBar.updatePosition(ClickGUIModule.searchBarX.value, ClickGUIModule.searchBarY.value)
+
     }
 
     fun wipeDescription(){

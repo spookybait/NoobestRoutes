@@ -1,6 +1,5 @@
 package noobestroutes.ui.clickgui.elements.menu
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.KeybindSetting
 import noobestroutes.font.FontRenderer
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
@@ -12,6 +11,7 @@ import noobestroutes.ui.util.elements.KeybindElement
 import noobestroutes.utils.render.TextAlign
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
+import net.minecraft.client.renderer.GlStateManager
 
 /**
  * Renders all the modules.

@@ -1,11 +1,9 @@
 package noobestroutes.ui.clickgui.elements
 
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.texture.DynamicTexture
 import noobestroutes.Core
 import noobestroutes.features.Category
 import noobestroutes.features.ModuleManager.modules
-import noobestroutes.features.render.ClickGUIModule
+import noobestroutes.features.impl.render.ClickGUIModule
 import noobestroutes.font.FontRenderer
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
@@ -22,6 +20,8 @@ import noobestroutes.utils.render.*
 import noobestroutes.utils.render.ColorUtil.brighter
 import noobestroutes.utils.render.ColorUtil.withAlpha
 import noobestroutes.utils.round
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.texture.DynamicTexture
 import org.lwjgl.input.Keyboard
 import kotlin.math.floor
 

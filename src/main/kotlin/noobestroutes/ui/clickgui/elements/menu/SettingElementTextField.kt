@@ -1,6 +1,5 @@
 package noobestroutes.ui.clickgui.elements.menu
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.StringSetting
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
 import noobestroutes.ui.ColorPalette.elementBackground
@@ -12,6 +11,7 @@ import noobestroutes.utils.render.ColorUtil.darker
 import noobestroutes.utils.render.TextAlign
 import noobestroutes.utils.render.roundedRectangle
 import noobestroutes.utils.render.text
+import net.minecraft.client.renderer.GlStateManager
 
 /**
  * Renders all the modules.
@@ -31,8 +31,20 @@ class SettingElementTextField(setting: StringSetting) :
     }
 
     val textElement = TextBoxElement(
-        "", w - BORDER_OFFSET, h * 0.5f - TEXT_BOX_ELEMENT_HEIGHT_HALF, 36f, TEXT_BOX_ELEMENT_HEIGHT, 12f, TextAlign.Right, 6f, 9f,
-        textColor.darker(), 12, TextBoxElement.TextBoxType.NORMAL, 2f, setting.text
+        "",
+        w - BORDER_OFFSET,
+        h * 0.5f - TEXT_BOX_ELEMENT_HEIGHT_HALF,
+        36f,
+        TEXT_BOX_ELEMENT_HEIGHT,
+        12f,
+        TextAlign.Right,
+        6f,
+        9f,
+        textColor.darker(),
+        12,
+        TextBoxElement.TextBoxType.NORMAL,
+        2f,
+        setting.text
     ).apply {
         addValueChangeListener {
             setting.text = it

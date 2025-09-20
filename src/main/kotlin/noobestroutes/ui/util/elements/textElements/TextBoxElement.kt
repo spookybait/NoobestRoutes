@@ -1,16 +1,16 @@
 package noobestroutes.ui.util.elements.textElements
 
-import net.minecraft.client.gui.GuiScreen
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.ui.ColorPalette
 import noobestroutes.ui.util.ElementValue
 import noobestroutes.ui.util.MouseUtils
 import noobestroutes.ui.util.UiElement
 import noobestroutes.ui.util.animations.impl.ColorAnimation
+import noobestroutes.utils.Utils.writeToClipboard
 import noobestroutes.utils.clock.Clock
 import noobestroutes.utils.render.*
 import noobestroutes.utils.render.ColorUtil.withAlpha
-import noobestroutes.utils.writeToClipboard
+import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
 import kotlin.math.max
 import kotlin.math.min
@@ -34,8 +34,7 @@ class TextBoxElement(
     override var elementValue: String,
     val keyWhiteList: List<Int>,
     val placeHolder: String = "",
-    val verticalAlign: TextPos = TextPos.Middle,
-    val unit: String = ""
+    val verticalAlign: TextPos = TextPos.Middle
 ) : UiElement(x, y), ElementValue<String> {
     constructor(
         name: String,
@@ -54,9 +53,27 @@ class TextBoxElement(
         elementValue: String,
         placeHolder: String = "",
         verticalAlign: TextPos = TextPos.Middle
-    ) : this(name, x, y, minWidth, h, textScale, textAlign, radius, textPadding, boxColor, maxCharacters, boxType, boxThickness, elementValue, defaultWhiteList, placeHolder, verticalAlign)
+    ) : this(
+        name,
+        x,
+        y,
+        minWidth,
+        h,
+        textScale,
+        textAlign,
+        radius,
+        textPadding,
+        boxColor,
+        maxCharacters,
+        boxType,
+        boxThickness,
+        elementValue,
+        defaultWhiteList,
+        placeHolder,
+        verticalAlign
+    )
 
-    enum class TextBoxType{
+    enum class TextBoxType {
         GAP,
         NORMAL,
         NO_BOX
@@ -118,6 +135,7 @@ class TextBoxElement(
         )
         val textSelectionColor = Color(76, 204, 252, 0.651f)
     }
+
     private inline val fontHeight get() = getTextHeight("M", textScale)
 
     private val copyColorAnimation = ColorAnimation(500)
@@ -133,10 +151,7 @@ class TextBoxElement(
                 invokeValueChangeListeners()
                 listening = false
             }
-            Keyboard.KEY_DELETE -> {
-                if (elementValue.isEmpty()) return true
 
-            }
             Keyboard.KEY_BACK -> {
                 if (elementValue.isEmpty()) return true
                 if (hasSelection) {
@@ -155,6 +170,7 @@ class TextBoxElement(
                     elementValue = elementValue.removeRange(insertionCursor, insertionCursor + 1)
                 }
             }
+
             Keyboard.KEY_C -> {
                 if (controlHeld) {
                     if (hasSelection) {
@@ -165,6 +181,7 @@ class TextBoxElement(
                 }
                 if (keyCode in keyWhiteList) typeCharacter(typedChar)
             }
+
             Keyboard.KEY_X -> {
                 if (controlHeld) {
                     if (hasSelection) {
@@ -175,18 +192,23 @@ class TextBoxElement(
                 }
                 if (keyCode in keyWhiteList) typeCharacter(typedChar)
             }
+
             Keyboard.KEY_V -> {
                 if (controlHeld) {
                     GuiScreen.getClipboardString()?.let {
                         var filteredText = it.filter { char ->
                             Keyboard.getKeyIndex(char.uppercase()) in keyWhiteList || (char == ' ' && keyWhiteList.contains(
-                                Keyboard.KEY_SPACE))
+                                Keyboard.KEY_SPACE
+                            ))
                         }
                         if (hasSelection) {
                             removeSelectionFromString()
                         }
                         filteredText = filteredText.take((maxCharacters - elementValue.length).coerceAtLeast(0))
-                        elementValue = elementValue.substring(0, insertionCursor) + filteredText + elementValue.substring(insertionCursor)
+                        elementValue =
+                            elementValue.substring(0, insertionCursor) + filteredText + elementValue.substring(
+                                insertionCursor
+                            )
                         generateCharacterHitboxes()
                         insertionCursor += filteredText.length
                     }
@@ -194,6 +216,7 @@ class TextBoxElement(
                 }
                 if (keyCode in keyWhiteList) typeCharacter(typedChar)
             }
+
             Keyboard.KEY_A -> {
                 if (controlHeld) {
                     selectionStart = 0
@@ -202,9 +225,11 @@ class TextBoxElement(
                 }
                 if (keyCode in keyWhiteList) typeCharacter(typedChar)
             }
+
             in keyWhiteList -> {
                 typeCharacter(typedChar)
             }
+
             Keyboard.KEY_RIGHT -> {
                 val shiftAmount = if (controlHeld) (getWordIndexRight() - insertionCursor) else 1
                 if (shiftHeld) {
@@ -228,6 +253,7 @@ class TextBoxElement(
                 }
                 shiftRight(shiftAmount)
             }
+
             Keyboard.KEY_LEFT -> {
                 val shiftAmount = if (controlHeld) insertionCursor - getWordIndexLeft() else 1
                 if (shiftHeld) {
@@ -256,17 +282,18 @@ class TextBoxElement(
         return true
     }
 
-    private fun typeCharacter(typedChar: Char){
+    private fun typeCharacter(typedChar: Char) {
         if (hasSelection) {
             removeSelectionFromString()
         }
         if (elementValue.length >= maxCharacters) return
-        elementValue = elementValue.substring(0, insertionCursor) + typedChar.toString() + elementValue.substring(insertionCursor)
+        elementValue =
+            elementValue.substring(0, insertionCursor) + typedChar.toString() + elementValue.substring(insertionCursor)
         insertionCursor++
         generateCharacterHitboxes()
     }
 
-    private fun removeSelectionFromString(){
+    private fun removeSelectionFromString() {
         val end = maxSelection
         val start = minSelection
         resetSelection()
@@ -335,7 +362,13 @@ class TextBoxElement(
     }
 
     var listening = false
-    private inline val isHovered get() = isAreaHovered(x, y, stringWidth(elementValue, textScale, minWidth, textPadding), h)
+    private inline val isHovered
+        get() = isAreaHovered(
+            x,
+            y,
+            stringWidth(elementValue, textScale, minWidth, textPadding),
+            h
+        )
 
     fun getCursorIndexFromX(mouseX: Float): Int {
         for ((i, hitbox) in charHitboxes.withIndex()) {
@@ -344,7 +377,7 @@ class TextBoxElement(
         return elementValue.length
     }
 
-    private fun generateCharacterHitboxes(){
+    private fun generateCharacterHitboxes() {
         charHitboxes.clear()
         var currentX = when (textAlign) {
             TextAlign.Right -> -textPadding
@@ -363,9 +396,9 @@ class TextBoxElement(
     override fun mouseClicked(mouseButton: Int): Boolean {
         if (mouseButton != 0) return false
         if (!isHovered) {
-            resetSelection()
-            if (listening) invokeValueChangeListeners()
             listening = false
+            resetSelection()
+            invokeValueChangeListeners()
             return false
         }
         if (resetClickStageClock.hasTimePassed(false)) clickSelectStage = 0
@@ -388,6 +421,7 @@ class TextBoxElement(
                 clickSelectStage++
                 resetClickStageClock.update()
             }
+
             1 -> {
                 resetSelection()
                 selectionStart = getWordIndexLeft()
@@ -396,6 +430,7 @@ class TextBoxElement(
                 clickSelectStage++
                 resetClickStageClock.update()
             }
+
             2 -> {
                 resetSelection()
                 selectionStart = 0
@@ -411,7 +446,7 @@ class TextBoxElement(
         return false
     }
 
-    private fun drawSelection(textX: Float, textY: Float, textHeight: Float){
+    private fun drawSelection(textX: Float, textY: Float, textHeight: Float) {
         val end = maxSelection
         val start = minSelection
 
@@ -456,7 +491,7 @@ class TextBoxElement(
         return (x + textOrigin + boxOffset) to (y + h * 0.5f)
     }
 
-    private fun drawCursor(textX: Float){
+    private fun drawCursor(textX: Float) {
         cursorClock.hasTimePassed(true)
         if (cursorClock.getTime() > 500L) return
         val textHeight = fontHeight
@@ -464,21 +499,23 @@ class TextBoxElement(
 
         val insertionCursorX = if (elementValue.isEmpty()) insertionCursorOrigin else
             when (insertionCursor) {
-            elementValue.length -> {
-                getTextWidth(elementValue, textScale) + insertionCursorOrigin
+                elementValue.length -> {
+                    getTextWidth(elementValue, textScale) + insertionCursorOrigin
+                }
+
+                0 -> {
+                    insertionCursorOrigin
+                }
+
+                else -> {
+                    insertionCursorOrigin + getTextWidth(
+                        elementValue.substring(
+                            0,
+                            insertionCursor.coerceAtMost(elementValue.length - 1)
+                        ), textScale
+                    )
+                }
             }
-            0 -> {
-                insertionCursorOrigin
-            }
-            else -> {
-                insertionCursorOrigin + getTextWidth(
-                    elementValue.substring(
-                        0,
-                        insertionCursor.coerceAtMost(elementValue.length - 1)
-                    ), textScale
-                )
-            }
-        }
         roundedRectangle(
             insertionCursorX + textX,
             y + h * 0.5f - textHeight * 0.5f,
@@ -487,13 +524,14 @@ class TextBoxElement(
             Color.Companion.WHITE
         )
     }
-    private fun resetCursorBlink(){
+
+    private fun resetCursorBlink() {
         cursorClock.setTime(System.currentTimeMillis() + 500L)
     }
 
     private fun drawTextBoxWithGapTitle() {
         GlStateManager.pushMatrix()
-        val displayString = elementValue.ifBlank { placeHolder } + unit
+        val displayString = elementValue.ifBlank { placeHolder }
         val width = stringWidth(displayString, textScale, minWidth, textPadding)
         val nameWidth = getTextWidth(name, textScale) + textPadding
         val nameOrigin = when (textAlign) {
@@ -507,6 +545,7 @@ class TextBoxElement(
             TextAlign.Middle -> -width * 0.5f
             TextAlign.Right -> -width
         }
+
 
         translate(boxOffset, 0f)
         val textOrigin = when (textAlign) {
@@ -531,6 +570,8 @@ class TextBoxElement(
             align = textAlign,
             verticalAlign = verticalAlign
         )
+
+
         gapOutline(
             x,
             y,
@@ -545,11 +586,13 @@ class TextBoxElement(
             boxThickness
         )
 
+
         GlStateManager.popMatrix()
     }
-    private fun drawTextBox(){
+
+    private fun drawTextBox() {
         GlStateManager.pushMatrix()
-        val displayString = elementValue.ifBlank { placeHolder } + unit
+        val displayString = elementValue.ifBlank { placeHolder }
         val width = stringWidth(displayString, textScale, minWidth, textPadding)
 
         val boxOffset = when (textAlign) {
@@ -577,9 +620,10 @@ class TextBoxElement(
         )
         GlStateManager.popMatrix()
     }
-    private fun drawTextBoxNoBox(){
+
+    private fun drawTextBoxNoBox() {
         GlStateManager.pushMatrix()
-        val displayString = elementValue.ifBlank { placeHolder } + unit
+        val displayString = elementValue.ifBlank { placeHolder }
         val width = stringWidth(displayString, textScale, minWidth, textPadding)
 
         val boxOffset = when (textAlign) {
@@ -607,7 +651,7 @@ class TextBoxElement(
     }
 
 
-    fun resetSelection(){
+    fun resetSelection() {
         listeningTextSelection = false
         selectionStart = 0
         selectionEnd = 0

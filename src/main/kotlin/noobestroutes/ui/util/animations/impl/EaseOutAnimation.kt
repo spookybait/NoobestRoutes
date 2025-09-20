@@ -2,7 +2,7 @@ package noobestroutes.ui.util.animations.impl
 
 import noobestroutes.ui.util.animations.Animation
 
-class EaseOutAnimation(duration: Long): Animation<Float>(duration) {
+class EaseOutAnimation(duration: Long) : Animation<Float>(duration) {
 
     override fun get(start: Float, end: Float, reverse: Boolean): Float {
         val startVal = if (reverse) end else start

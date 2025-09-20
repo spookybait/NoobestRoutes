@@ -31,7 +31,9 @@ class AccessorBasedNumberBoxElement(
 
     inline var elementValue
         get() = getter.invoke().toDouble()
-        set(value) {setter(value)}
+        set(value) {
+            setter(value)
+        }
 
     val textBox = TextBoxElement(
         name,
@@ -55,7 +57,6 @@ class AccessorBasedNumberBoxElement(
             textUnlisten(it)
         }
     }
-
 
 
     override fun draw() {

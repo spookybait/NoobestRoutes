@@ -1,6 +1,5 @@
 package noobestroutes.ui.hud
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.config.Config
 import noobestroutes.features.ModuleManager.huds
 import noobestroutes.font.FontRenderer
@@ -12,6 +11,7 @@ import noobestroutes.ui.util.animations.impl.EaseInOut
 import noobestroutes.utils.clock.Executor
 import noobestroutes.utils.clock.Executor.Companion.register
 import noobestroutes.utils.render.*
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.Display
 import kotlin.math.sign
 
@@ -34,7 +34,7 @@ object EditHUDGui : Screen() {
 
     /** Code is horrible ngl but it looks nice */
     override fun draw() {
-        mc.mcProfiler.startSection("noobestroutes Example Hud")
+        mc.mcProfiler.startSection("Noobroutes Example Hud")
         dragging?.let {
             it.x = MouseUtils.mouseX - startX
             it.y = MouseUtils.mouseY - startY

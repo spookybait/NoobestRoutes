@@ -1,13 +1,13 @@
 package noobestroutes.ui
 
 
-import net.minecraft.client.gui.GuiScreen
-import net.minecraft.client.renderer.GlStateManager
-import noobestroutes.features.render.ClickGUIModule
+import noobestroutes.features.impl.render.ClickGUIModule
 import noobestroutes.ui.util.shader.GaussianBlurShader
 import noobestroutes.utils.render.scale
 import noobestroutes.utils.render.scaleFactor
 import noobestroutes.utils.render.translate
+import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.GL11
 

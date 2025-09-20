@@ -1,6 +1,5 @@
 package noobestroutes.ui.clickgui.elements.menu
 
-import net.minecraft.client.renderer.GlStateManager
 import noobestroutes.features.settings.impl.DropdownSetting
 import noobestroutes.font.FontRenderer
 import noobestroutes.ui.ColorPalette.TEXT_OFFSET
@@ -27,15 +26,15 @@ class SettingElementDropdown(setting: DropdownSetting) : SettingElement<Dropdown
 ) {
     private val linearAnimation = LinearAnimation<Float>(200)
 
+    override val isHovered: Boolean get() =
+        isAreaHovered(x, y, w, h)
+
     override fun draw() {
-        GlStateManager.pushMatrix()
-        translate(x , y)
-        roundedRectangle(0f, 0f, w, h, elementBackground)
-        text(name, TEXT_OFFSET, h  * 0.5f, textColor, 12f, FontRenderer.REGULAR)
+        roundedRectangle(x, y, w, h, elementBackground)
+        text(name, x + TEXT_OFFSET, y + h  * 0.5f, textColor, 12f, FontRenderer.REGULAR)
 
         val rotation = linearAnimation.get(0f, 90f, !setting.value)
-        drawArrow(w - 12f, 16f, rotation, scale = 0.8f)
-        GlStateManager.popMatrix()
+        drawArrow(x + w - 12f, y + 16, rotation, scale = 0.8f)
     }
 
     override fun mouseClicked(mouseButton: Int): Boolean {
