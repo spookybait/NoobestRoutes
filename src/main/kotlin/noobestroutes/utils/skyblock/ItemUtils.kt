@@ -137,7 +137,7 @@ fun getItemIndexInContainerChestByLore(container: ContainerChest, lore: String, 
 enum class ItemRarity(
     val loreName: String,
     val colorCode: String,
-    val color: noobroutes.utils.render.Color
+    val color: noobestroutes.utils.render.Color
 ) {
     COMMON("COMMON", "§f", Color.Companion.WHITE),
     UNCOMMON("UNCOMMON", "§2", Color.Companion.GREEN),
